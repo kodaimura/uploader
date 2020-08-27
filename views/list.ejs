@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>一覧</title>
+<style>
+input.link-style-btn{
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #0033cc;
+}
+input.link-style-btn:hover{
+  text-decoration: underline;
+  color: #002080;
+}
+
+</style>
+</head>
+<body>
+<h2>提出学生一覧</h2>
+<a href="../">戻る</a>
+<table>
+<% for (let i of reportlist) { %>
+
+<tr>
+<td>
+<form method="post" action="opens/<%- i.zipfile %>/<%- i.html %>">
+<input type="hidden" value="pass" name="password" class="password">
+<input type="submit" class="check link-style-btn" value="<%- i.sId %>" name="sId">
+</form>
+</td>
+</tr>
+<% } %>
+</table>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+	function clickEvent(){
+		let pass = prompt('閲覧用パスワード');
+		if (pass === ""){
+			alert(document.getElementById("password").value);
+			event.preventDefault();
+		} else {
+			const allpass = document.getElementsByClassName("password");
+			for (let i = 0; i < allpass.length; i++) {
+				allpass[i].value = pass;
+			}
+		} 
+	}
+
+	const menus = document.getElementsByClassName('check');
+	for (let i = 0; i < menus.length; i++) {
+		menus[i].addEventListener('click', clickEvent);
+	}
+});
+
+</script>
+
+</body>
+</html>
